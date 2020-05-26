@@ -22,19 +22,16 @@ const void *heap_min(const binheap_type *H){
 }
 
 void swap_keys(binheap_type *H, unsigned int n_a, unsigned int n_b ){
-	void *p_a = ADDR(H, n_a);
-	void *p_b = ADDR(H, n_b);
-	void *tmp = malloc(H->key_size);
+	//Avoid to swap the elements
+	//in the array A (using 
+	//key_pos and rev_pos)
 	
-	memcpy(tmp, p_a, H->key_size);
-	memcpy(p_a, p_b, H->key_size);
-	memcpy(p_b, tmp, H->key_size);
-		
-	free(tmp);
-		  
+	
+	
+	  
 }
 
-void heapify(binheap_type *H, unsigned int node){
+void heapify(binheap_type *H, unsigned int node){            //change
 	unsigned int dst_node = node;
 	unsigned int child;
 	do{
@@ -84,7 +81,7 @@ binheap_type *build_heap(void *A,
                          const unsigned int num_of_elem,
                          const unsigned int max_size,  
                          const size_t key_size, 
-                         total_order_type leq){
+                         total_order_type leq){                          //change
 	binheap_type *H = (binheap_type *)malloc(sizeof(binheap_type));
 	H->A = A;
 	H->num_of_elem = num_of_elem;
@@ -111,7 +108,7 @@ void delete_heap(binheap_type *H){
 	free(H);
 }
 
-const void *decrease_key(binheap_type *H, void *node, const void *value){
+const void *decrease_key(binheap_type *H, void *node, const void *value){    //change
 	unsigned int node_idx =  INDEX_OF(H, node);
         if(!VALID_NODE(H, node_idx) || !(H->leq(value, node))){
                 return NULL;
@@ -129,7 +126,7 @@ const void *decrease_key(binheap_type *H, void *node, const void *value){
         return node;
 }
 
-const void *insert_value(binheap_type *H, const void *value){
+const void *insert_value(binheap_type *H, const void *value){    //change
 	if(H->max_size == H->num_of_elem){
 		return NULL;
 	}
