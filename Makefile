@@ -5,8 +5,8 @@ strassen:
 		gcc Strassen_Algorithm/main.c Strassen_Algorithm/strassen.c Strassen_Algorithm/matrix.c -o strassen.x
 
 heap:
-		gcc Heaps/main.c Heaps/binheap.c Heaps/total_orders.c -o heap.x
-
+		gcc -I ./Heaps/include/ -std=c11 ./Heaps/tests/test_delete_min.c ./Heaps/src/binheap.c ./Heaps/src/total_orders.c ./Heaps/tests/common/array_functions.c ./Heaps/tests/common/heap_functions.c ./Heaps/tests/common/test_set.c ./Heaps/tests/common/test_time.c -o test_delete_min.x
+		gcc -I ./Heaps/include/ -std=c11 ./Heaps/tests/test_insert.c ./Heaps/src/binheap.c ./Heaps/src/total_orders.c ./Heaps/tests/common/test_time.c -o test_insert.x
 #heap2
 
 sort:
