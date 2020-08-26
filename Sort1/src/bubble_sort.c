@@ -3,7 +3,7 @@
 
 void bubble_sort(void *A, const unsigned int n, 
                  const size_t elem_size, 
-                 total_order leq)
+                 total_order_type leq)
 {
 	for(size_t i = n; i > 0 ; i--){
 		for(size_t j = 0; j < i; j++){

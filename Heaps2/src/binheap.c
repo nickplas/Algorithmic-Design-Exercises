@@ -151,7 +151,8 @@ const void *decrease_key(binheap_type *H, void *node, const void *value){
     
     memcpy(node, value, H->key_size);
 
-    if(H->num_of_elem>1){
+    //if we have only one element we cannot use PARENT macro
+    if(H->num_of_elem> 1){
         unsigned int parent_idx = KEY(H, PARENT(node_pos));
         void *parent = ADDR(H, parent_idx);
 
@@ -160,7 +161,7 @@ const void *decrease_key(binheap_type *H, void *node, const void *value){
             swap_keys(H, parent_idx, node_idx);
         
             node_pos = POS(H, node_idx);
-            parent_pos = PARENT(node_pos);
+            parent_pos = PARENT(node_pos); //not always possible
 
             if(VALID_NODE(H, parent_pos)){
                 parent_idx = KEY(H, parent_pos);
@@ -178,7 +179,7 @@ const void *insert_value(binheap_type *H, const void *value){
         return NULL;
     }
 
-    if(H->num_of_elem == 0 || !H->leq(value, H->max_order_value)){
+    if(H->num_of_elem == 0 || !(H->leq(value, H->max_order_value))){
         memcpy(H->max_order_value, value, H->key_size);
     }
 

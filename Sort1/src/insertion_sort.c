@@ -3,7 +3,7 @@
 
 void insertion_sort(void *A, const unsigned int n, 
                     const size_t elem_size, 
-                    total_order leq)
+                    total_order_type leq)
 {
 	size_t j;
 	for(size_t i = 0; i<n; i++){

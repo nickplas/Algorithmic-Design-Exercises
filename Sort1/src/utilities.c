@@ -19,7 +19,7 @@ int *get_random_int_array(const unsigned int n)
 
 int is_sorted(const void *A, const unsigned int n, 
               const size_t elem_size, 
-              total_order leq)
+              total_order_type leq)
 {
   for (const void *addr=A; addr!=A+(n-1)*elem_size; 
     addr+=elem_size) {
@@ -34,9 +34,9 @@ int is_sorted(const void *A, const unsigned int n,
 
 double test(void (*sort)(void *A, const unsigned int n, 
                          const size_t elem_size, 
-                         total_order leq), 
+                         total_order_type leq), 
             const void *A, const unsigned int n, 
-            const size_t elem_size, total_order leq, 
+            const size_t elem_size, total_order_type leq, 
             const unsigned int rep,
             int *sorted)
 {

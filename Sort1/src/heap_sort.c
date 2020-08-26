@@ -4,10 +4,10 @@
 
 void heap_sort(void *A, const unsigned int n, 
                const size_t elem_size, 
-               total_order leq)
+               total_order_type leq)
 {
 	binheap_type *H = build_heap(A, n, MAX_SIZE, elem_size, leq);
 	for(size_t i = n-1; i>0; i--){
-		remove_min(H);
+		extract_min(H);
 	}
 }
