@@ -139,13 +139,13 @@ void delete_heap(binheap_type *H){
 
 
 const void *decrease_key(binheap_type *H, void *node, const void *value){
-    
+
     unsigned int node_idx = INDEX_OF(H, node);
     unsigned int node_pos = POS(H, node_idx);
     unsigned int parent_pos;
 
     //check if the node is valid or if the new value is greater than the node's key
-    if(!VALID_NODE(H, node_idx) || !(H->leq(value, node))){
+    if(!(H->leq(value, node))){
         return NULL;
     }
     
