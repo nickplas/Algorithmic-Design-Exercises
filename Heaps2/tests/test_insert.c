@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
   do {
     printf("Insert an integer number (0 to extract the min): ");
     scanf("%d", &value);
+
     if (value != 0) {
       insert_value(maxH, &value);
       insert_value(minH, &value);

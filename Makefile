@@ -5,7 +5,7 @@ strassen:
 		gcc Strassen_Algorithm/main.c Strassen_Algorithm/strassen.c Strassen_Algorithm/matrix.c -o strassen.x
 
 heap:
-		gcc -I ./Heaps/include/ -std=c11 ./Heaps/tests/test_delete_min.c ./Heaps/src/binheap.c ./Heaps/src/total_orders.c ./Heaps/tests/common/array_functions.c ./Heaps/tests/common/heap_functions.c ./Heaps/tests/common/test_set.c ./Heaps/tests/common/test_time.c -o test_delete_min.x
+		gcc -I ./Heaps/include/  -std=c11 ./Heaps/tests/test_delete_min.c ./Heaps/src/binheap.c ./Heaps/src/total_orders.c ./Heaps/tests/common/array_functions.c ./Heaps/tests/common/heap_functions.c ./Heaps/tests/common/test_set.c ./Heaps/tests/common/test_time.c -o test_delete_min.x
 		gcc -I ./Heaps/include/ -std=c11 ./Heaps/tests/test_insert.c ./Heaps/src/binheap.c ./Heaps/src/total_orders.c ./Heaps/tests/common/test_time.c -o test_insert.x
 
 		gcc -I ./Heaps2/include/ -std=c11 ./Heaps2/tests/test_delete_min.c ./Heaps2/src/binheap.c ./Heaps2/src/total_orders.c ./Heaps2/tests/common/array_functions.c ./Heaps2/tests/common/heap_functions.c ./Heaps2/tests/common/test_set.c ./Heaps2/tests/common/test_time.c -o test2_delete_min.x

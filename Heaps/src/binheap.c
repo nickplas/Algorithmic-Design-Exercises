@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define PARENT(node) ((node-1)/2)
-#define LEFT_CHILD(node) (2*(node))
+#define LEFT_CHILD(node) (2*(node)+1)
 #define RIGHT_CHILD(node) (2*(node+1)) 
 #define VALID_NODE(H,node) ((H)->num_of_elem>(node))
 #define ADDR(H,node) ((H)->A+node*(H)->key_size)
@@ -40,11 +40,11 @@ void heapify(binheap_type *H, unsigned int node){
     do{
         node = dst_node;
         child = RIGHT_CHILD(node);
-        if (VALID_NODE(H,child) && H->leq(ADDR(H,child), ADDR(H, node))){
+        if (VALID_NODE(H,child) && H->leq(ADDR(H,child), ADDR(H, dst_node))){
             dst_node = child;
         }
         child = LEFT_CHILD(node);
-        if (VALID_NODE(H,child) && H->leq(ADDR(H,child), ADDR(H, node))) {
+        if (VALID_NODE(H,child) && H->leq(ADDR(H,child), ADDR(H, dst_node))) {
             dst_node = child;
         }
         if(dst_node != node){
