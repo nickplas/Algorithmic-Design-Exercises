@@ -26,15 +26,14 @@ const void *min_value(const binheap_type *H){
 
 //Here we will use key_pos and rev_pos to perform the swap
 void swap_keys(binheap_type *H, unsigned int n_a, unsigned int n_b ){
-	//printf("I am swapping node %d in pos %d with node %d in pos %d\n", n_a, POS(H, n_a), n_b, POS(H, n_b));
 	unsigned int p_a = POS(H, n_a);
 	unsigned int p_b = POS(H, n_b);
-	//printf("p_a is %d, p_b is %d\n", p_a, p_b);
 	POS(H, n_a) = p_b;
-	POS(H, n_b) = p_a; 
-	KEY(H, p_a) = n_b;
-	KEY(H, p_b) = n_a;
-	//printf("now we have that %d is in pos %d and %d is in pos %d\n", KEY(H, p_a), POS(H, n_a), KEY(H, p_b), POS(H, n_b));
+	POS(H, n_b) = p_a;
+
+	unsigned int tmp = KEY(H, p_a); 
+	KEY(H, p_a) = KEY(H, p_b);
+	KEY(H, p_b) = tmp;
 }
 
 //changing heapify function in order to use POS and KEY
@@ -43,14 +42,11 @@ void heapify(binheap_type *H, unsigned int node){
 	unsigned int child, node_pos, child_pos;
 	do{
         	node = dst_node;
-		node_pos = POS(H, node);
-        	child_pos = RIGHT_CHILD(node_pos);
-		child = KEY(H, child_pos); 
-        	if (VALID_NODE(H,child_pos) && H->leq(ADDR(H,child), ADDR(H, dst_node))){
+		child = RIGHT_CHILD(node); 
+        	if (VALID_NODE(H,child) && H->leq(ADDR(H,child), ADDR(H, dst_node))){
         		dst_node = child;
         	}
-        	child_pos = LEFT_CHILD(node_pos);
-		child = KEY(H, child);
+		child = LEFT_CHILD(node);
         	if (VALID_NODE(H,child) && H->leq(ADDR(H,child), ADDR(H, dst_node))) {
         		dst_node = child;
         	}
@@ -64,11 +60,11 @@ const void *extract_min(binheap_type *H){
 	if(is_heap_empty(H)){
         	return NULL;
 	}
-	swap_keys(H, 0,  H->num_of_elem-1); //here I've used KEY macro
+	swap_keys(H, 0,  H->num_of_elem-1); 
 	H->num_of_elem--;
-	heapify(H, 0); //KEY macro
+	heapify(H, 0); 
 
-	return ADDR(H, H->num_of_elem+1); //KEY macro
+	return ADDR(H, KEY(H, H->num_of_elem+1)); 
 }
 
 const void *find_the_max(void *A, const unsigned int num_of_elem,
@@ -109,14 +105,15 @@ binheap_type *build_heap(void *A,
 	if (num_of_elem == 0) {
 		return H;
 	}
+
+	for(size_t i = 0; i<num_of_elem; i++ ){
+                H->rev_pos[i] = i;
+                H->key_pos[i] = i;
+        }
+
 	const void *value = find_the_max(A,num_of_elem, key_size,leq);
 	                            							
 	memcpy(H->max_order_value, value, key_size);
-
-	for(size_t i = 0; i<num_of_elem; i++ ){
-		H->rev_pos[i] = i;
-		H->key_pos[i] = i;
-	}
 
 	//fix heap property
 	for(unsigned int i=num_of_elem/2; i>0; i--){
