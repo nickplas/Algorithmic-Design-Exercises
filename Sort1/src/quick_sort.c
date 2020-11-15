@@ -8,6 +8,7 @@ unsigned int partition(void *A, const size_t elem_size, size_t i, size_t j ,size
 	swap(A+i*elem_size, A+p*elem_size, elem_size);
 	p = i;
 	i++;
+	j--; //Non può avere come valore n !!!
 	while(i<=j){
 		if(leq(A+p*elem_size, A+i*elem_size)){
 			swap(A+i*elem_size,A+j*elem_size, elem_size);

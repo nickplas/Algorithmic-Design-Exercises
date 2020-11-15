@@ -9,8 +9,8 @@
 #include <utilities.h>
 #include <binheap.h>
 
-#define MAX_SIZE_ALL (1<<13) //remember to change it to 13
-#define MAX_SIZE_NLOGN (1<<20) //remember to change it to 20
+#define MAX_SIZE_ALL (1<<10) //13 is the result we want, 10 for debugging
+#define MAX_SIZE_NLOGN (1<<15) //20 is the result we want, 15 for debugging
 #define ARRAY_SIZE (1<<23)
 
 #define NUM_OF_REPETITIONS 15
@@ -70,13 +70,12 @@ int main(int argc, char *argv[])
     fprintf(f, "\n\n\n");
     printf("\n\n\n");
 
-    //printf("Size\tQuick Sort\t            \tQuick Sort + Select\n ");
-    //printf("    \t(Random Case)\t(Worst Case)\t(Random Case)\t(Worst Case)");
     
-    fprintf(f, "Size \tQuickSort\n");
-    fprintf(f, "    \t(Random Case)\t(Worst Case)");
-    printf("Size \tQuickSort\n");
-    printf("    \t(Random Case)\t(Worst Case)");
+    
+    fprintf(f, "Size \tQuickSort            \tQuick Sort + Select\n");
+    fprintf(f, "    \t(Random Case)\t(Worst Case)\t(Random Case)\t(Worst Case)");
+    printf("Size\tQuick Sort\t            \tQuick Sort + Select\n ");
+    printf("    \t(Random Case)\t(Worst Case)\t(Random Case)\t(Worst Case)");
     for (i=2; (1<<i)<=MAX_SIZE_ALL; i++) {
         const unsigned int A_size=1<<i;
         fprintf(f, "\n2^%d",i);
@@ -87,12 +86,12 @@ int main(int argc, char *argv[])
         test_and_print(quick_sort, A_sorted,
                        A_size, sizeof(int),
                        leq_int, NUM_OF_REPETITIONS, f);
-        //test_and_print(quick_sort_select, A,
-        //               A_size, sizeof(int),
-        //               leq_int, NUM_OF_REPETITIONS);
-        //test_and_print(quick_sort_select, A_sorted,
-        //               A_size, sizeof(int),
-        //               leq_int, NUM_OF_REPETITIONS);
+        test_and_print(quick_sort_select, A,
+                       A_size, sizeof(int),
+                       leq_int, NUM_OF_REPETITIONS, f);
+        test_and_print(quick_sort_select, A_sorted,
+                       A_size, sizeof(int),
+                       leq_int, NUM_OF_REPETITIONS, f);
     }
     fprintf(f, "\n\n\n");
     printf("\n\n\n");
@@ -124,13 +123,15 @@ int main(int argc, char *argv[])
     fprintf(f, "\n\n\n");
     printf("\n\n\n");
     
-    //printf("Size\tQuick Sort\tQuick Sort +\tHeap Sort\n");
-    //printf("    \t          \t  Select\n");
-    //printf("    \t(Random Case)\t(Random Case)\t");
+    printf("Size\tQuick Sort\tQuick Sort +\tHeap Sort\n");
+    printf("    \t          \t  Select\n");
+    printf("    \t(Random Case)\t(Random Case)\t");
 
-    fprintf(f, "Size\tQuick Sort \tHeap Sort\n");
+    fprintf(f, "Size\tQuick Sort\tQuick Sort +\tHeap Sort\n");
+    fprintf(f, "    \t          \t  Select\n");
     fprintf(f, "    \t(Random Case)\t(Random Case)\t");
-    printf("Size\tQuick Sort \tHeap Sort\n");
+    printf("Size\tQuick Sort\tQuick Sort +\tHeap Sort\n");
+    printf("    \t          \t  Select\n");
     printf("    \t(Random Case)\t(Random Case)\t");
     for (; (1<<i)<=MAX_SIZE_NLOGN; i++) {
         const unsigned int A_size=1<<i;
@@ -139,9 +140,9 @@ int main(int argc, char *argv[])
         test_and_print(quick_sort, A,
                        A_size, sizeof(int),
                        leq_int, NUM_OF_REPETITIONS, f);
-        //test_and_print(quick_sort_select, A,
-        //               A_size, sizeof(int),
-        //               leq_int, NUM_OF_REPETITIONS);
+        test_and_print(quick_sort_select, A,
+                       A_size, sizeof(int),
+                       leq_int, NUM_OF_REPETITIONS, f);
         test_and_print(heap_sort, A,
                        A_size, sizeof(int),
                        leq_int, NUM_OF_REPETITIONS, f);
