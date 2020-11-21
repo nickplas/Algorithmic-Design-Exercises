@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/milton/Desktop/Algorithmic-Design-Exercises/Sort2/src/select.c
+select.h
+-
+swap.h
+-
+quick_sort.h
+-
+insertion_sort.h
+-
+
+include/insertion_sort.h
+stdlib.h
+-
+total_order.h
+include/total_order.h
+
+include/quick_sort.h
+stdlib.h
+-
+total_order.h
+include/total_order.h
+
+include/select.h
+stdlib.h
+-
+total_order.h
+include/total_order.h
+quick_sort.h
+-
+
+include/swap.h
+stdlib.h
+-
+
+include/total_order.h
+

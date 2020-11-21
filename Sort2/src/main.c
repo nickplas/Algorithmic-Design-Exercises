@@ -9,8 +9,8 @@
 #include <utilities.h>
 #include <binheap.h>
 
-#define MAX_SIZE_ALL (1<<10) //13 is the result we want, 10 for debugging
-#define MAX_SIZE_NLOGN (1<<15) //20 is the result we want, 15 for debugging
+#define MAX_SIZE_ALL (1<<13) //13 is the result we want, 10 for debugging
+#define MAX_SIZE_NLOGN (1<<20) //20 is the result we want, 15 for debugging
 #define ARRAY_SIZE (1<<23)
 
 #define NUM_OF_REPETITIONS 15
@@ -49,26 +49,26 @@ int main(int argc, char *argv[])
 
     unsigned int i;
 
-    fprintf(f, "Size\tInsertion Sort\t          \t        \n");
-    fprintf(f, "    \t(Random Case)\t(Best Case)\t(Worst Case)");
-    printf("Size\tInsertion Sort\t          \t        \n");
-    printf("    \t(Random Case)\t(Best Case)\t(Worst Case)");
-    for (i=2; (1<<i)<=MAX_SIZE_ALL; i++) {
-        const unsigned int A_size=1<<i;
-        fprintf(f, "\n2^%d",i);
-        printf("\n2^%d",i);
-        test_and_print(insertion_sort, A,
-                       A_size, sizeof(int),
-                       leq_int, NUM_OF_REPETITIONS, f);
-        test_and_print(insertion_sort, A_sorted,
-                       A_size, sizeof(int),
-                       leq_int, NUM_OF_REPETITIONS, f);
-        test_and_print(insertion_sort, A_rev_sorted,
-                       A_size, sizeof(int),
-                       leq_int, NUM_OF_REPETITIONS, f);
-    }
-    fprintf(f, "\n\n\n");
-    printf("\n\n\n");
+    //fprintf(f, "Size\tInsertion Sort\t          \t        \n");
+    //fprintf(f, "    \t(Random Case)\t(Best Case)\t(Worst Case)");
+    //printf("Size\tInsertion Sort\t          \t        \n");
+    //printf("    \t(Random Case)\t(Best Case)\t(Worst Case)");
+    //for (i=2; (1<<i)<=MAX_SIZE_ALL; i++) {
+    //    const unsigned int A_size=1<<i;
+    //    fprintf(f, "\n2^%d",i);
+    //    printf("\n2^%d",i);
+    //    test_and_print(insertion_sort, A,
+    //                   A_size, sizeof(int),
+    //                   leq_int, NUM_OF_REPETITIONS, f);
+    //    test_and_print(insertion_sort, A_sorted,
+    //                   A_size, sizeof(int),
+    //                   leq_int, NUM_OF_REPETITIONS, f);
+    //    test_and_print(insertion_sort, A_rev_sorted,
+    //                   A_size, sizeof(int),
+    //                   leq_int, NUM_OF_REPETITIONS, f);
+    //}
+    //fprintf(f, "\n\n\n");
+    //printf("\n\n\n");
 
     
     
@@ -123,10 +123,6 @@ int main(int argc, char *argv[])
     fprintf(f, "\n\n\n");
     printf("\n\n\n");
     
-    printf("Size\tQuick Sort\tQuick Sort +\tHeap Sort\n");
-    printf("    \t          \t  Select\n");
-    printf("    \t(Random Case)\t(Random Case)\t");
-
     fprintf(f, "Size\tQuick Sort\tQuick Sort +\tHeap Sort\n");
     fprintf(f, "    \t          \t  Select\n");
     fprintf(f, "    \t(Random Case)\t(Random Case)\t");
