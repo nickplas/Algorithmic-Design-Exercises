@@ -1,4 +1,5 @@
 #include<graph.h>
+#include<stdlib.h>
 
 #define MAX_SIZE 100
 
@@ -16,6 +17,6 @@ int *get_random_int_array(const unsigned int n)
 }
 
 int main(){
-    int* A = (int)malloc(sizeof(int)*MAX_SIZE);
+    int* A = get_random_int_array(MAX_SIZE);
     return 0;
 }

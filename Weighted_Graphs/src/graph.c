@@ -1,5 +1,7 @@
 #include <graph.h>
 #include <stdlib.h>
+#include<time.h>
+#include<string.h>
 
 graph* build_graph(void* A, int** M, unsigned int n){
     graph* g;
