@@ -1,9 +1,9 @@
+#ifndef __GRAPH__
+#define __GRAPH__
 
-typedef struct node{
-    int index;
-    int value;
-    struct node* pred;
-} node;
+#define INFTY 9999
+
+#include<queue.h>
 
 typedef struct graph{
     node* V; // set of nodes
@@ -11,16 +11,14 @@ typedef struct graph{
     unsigned int size; // number of nodes
 } graph;
 
-typedef struct queue{
-    
-} queue;
-
 graph* build_graph(void* A, int** E, unsigned int n);
+
+int weight(graph* G, node* u, node* v);
 
 void init_sssp(graph* G, unsigned int max);
 
-void relax ();
+void relax(queue* Q, node* u, node* v, int w);
 
-void dijkstra (graph* G);
+void dijkstra(graph* G, node* source); //here distance array aka .d will be created
 
-queue* build_queue();
+#endif
