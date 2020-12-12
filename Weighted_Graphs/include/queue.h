@@ -25,7 +25,7 @@ node* dequeue(queue* Q, int value);
 
 int is_empty(queue* Q);
 
-node* extract_min(queue* Q); 
+node* extract_min_queue(queue* Q); 
 
 
 #endif

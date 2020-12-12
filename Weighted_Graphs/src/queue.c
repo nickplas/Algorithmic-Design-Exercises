@@ -37,7 +37,7 @@ int is_empty(queue* Q){
     }
 }
 
-node* extract_min(queue* Q){ 
+node* extract_min_queue(queue* Q){ 
     if(is_empty(Q)){
         return NULL;
     }

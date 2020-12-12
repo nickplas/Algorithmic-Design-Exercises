@@ -46,7 +46,7 @@ void dijkstra(graph* G, node* source){
     source->value = 0;
     queue* q = build_queue(G->V, G->size);
     while(!is_empty(q)){ //implement is_empty queue
-        node* u = extract_min(q); //implement
+        node* u = extract_min_queue(q); //implement
         node* v = find_nearest_node(G, u);
         relax(q, u, v, weight(G, u, v)); 
     }
