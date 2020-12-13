@@ -1,9 +1,14 @@
 #include<queue.h>
+#include<total_orders.h>
+#include<stdio.h>
 
 queue* build_queue(node* A, int size){
-    queue* q;
-    q->Q = &A;
+    queue* q = (queue*)malloc(sizeof(queue));
     q->size = size;
+    q->Q = (node**)malloc(sizeof(node)*size);
+    for(size_t i = 0; i < size; i++){
+        q->Q[i] = &A[i]; 
+    }
     return q;
 }
 
@@ -14,19 +19,20 @@ void swap(queue* Q, int first, int second){
 }
 
 int find_min(queue* Q){
-    int idx_min = 0;
-    for(size_t i = 1; i < Q->size; i++){
-        if(Q->Q[idx_min]->value > Q->Q[i]->value){
-            idx_min = i;
+    unsigned int min = 0;
+    for(unsigned int i = 1; i < Q->size; i++){
+        if(leq_int_node(Q->Q[i], Q->Q[min])){
+            min = i;
         }
     }
-    return idx_min;
+    return min;
 }
 
 node* dequeue(queue* Q, int index){
+    node* n = Q->Q[index]; //added
     swap(Q, index, Q->size-1);
     Q->size--;
-    return Q->Q[Q->size];
+    return n; //Q->Q[Q->size];
 }
 
 int is_empty(queue* Q){
@@ -41,5 +47,6 @@ node* extract_min_queue(queue* Q){
     if(is_empty(Q)){
         return NULL;
     }
-    return dequeue(Q,find_min(Q));
+    int n = find_min(Q); //added
+    return dequeue(Q,n);// find_min(Q);
 }

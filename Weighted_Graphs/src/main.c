@@ -1,14 +1,28 @@
 #include<graph.h>
-#include<stdlib.h>
 #include<utilities.h>
-
-#define MAX_SIZE 100
-
+#include<stdio.h>
+#include<total_orders.h>
 
 int main(){
-    int* A = get_random_int_array(10);
-    int** E = get_random_int_matrix(10);
-    graph* g = build_graph(A, E, 10); 
-    init_sssp(g, INFTY);
-    return 0;
+    int n = 10;
+    node* A = (node*)malloc(sizeof(node)*n);
+    int** E = get_random_int_matrix(n, 9999);
+    //graph* g_queue = build_graph(A, E, n);
+    
+    graph* g_heap = build_graph(A, E, n);
+    //struct timespec start, end;
+    //clock_gettime(CLOCK_REALTIME, &start);
+    //dijkstra_queue(g_queue,&g_queue->V[0]);
+    //clock_gettime(CLOCK_REALTIME, &end);
+    //printf("Queue implementation for Dijkstra algorithm take: %lf seconds \n", measure_time(end, start));
+    //clock_gettime(CLOCK_REALTIME, &start);
+    dijkstra_heap(g_heap, &g_heap->V[0]);
+    //clock_gettime(CLOCK_REALTIME, &end);
+    //printf("Heap implementation for Dijkstra algorithm take: %lf seconds \n", measure_time(end, start));
+    //printf("node %d has value %d \n", g_queue->V[1].index, g_queue->V[1].value);
+    free(A);
+    free(E);
+    //free(g_queue);
 }
+
+
