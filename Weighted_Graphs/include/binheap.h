@@ -70,7 +70,7 @@ void heapify(binheap_type *H, unsigned int node);
  * @return a pointer to the minimum in the heap, if H is not empty; 
  *         NULL otherwise.
  **********************************************************************/
-const void *extract_min_heap(binheap_type *H);
+const void *extract_min(binheap_type *H);
 
 /**********************************************************************
  * Build a new binary heap.

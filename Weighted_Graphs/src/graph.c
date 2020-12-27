@@ -25,21 +25,28 @@ void init_sssp(graph* G, unsigned int max){
 }
 
 void relax(node* u, node* v, int w){
-    if(u->value+ w < v->value){
-        u->value = u->value+w;
+    printf("u->value %d, w %d, v->value %d\n", u->value, w, v->value);
+    if(u->value+ w < v->value){ // does not enter here
+        //printf("u->value %d, w %d, v->value %d", u->value, w, v->value);
+        v->value = u->value+w;
+        //printf("u->value %d, w %d, v->value %d", u->value, w, v->value);
         v->pred=u;
     }
 }
 
-node* find_nearest_node(graph* G, node* n){ 
+//Must find all neighbours of node n, not the nearest
+int* find_nodes(graph* G, node* n){ 
     
-    int idx_min = 0;
+    int* nodes = (int*)malloc(sizeof(int)*G->size);
+    int j = 0;
     for(size_t i = 0; i < G->size; i++){       
-        if((n->index != G->V[i].index && (weight(G, n, &G->V[i]) < weight(G, n, &G->V[idx_min])) )){
-            idx_min = i;
+        if(n->index != G->V[i].index && (weight(G, n, &G->V[i]) < INFTY) ){
+            nodes[j] = G->V[i].index;
+            j++;
         }
     }
-    return &G->V[idx_min]; 
+    nodes[j]= -1;
+    return nodes; 
 }
 
 void dijkstra_queue(graph* G, node* source){
@@ -48,21 +55,37 @@ void dijkstra_queue(graph* G, node* source){
     queue* q = build_queue(G->V, G->size);
     while(!is_empty(q)){ 
         node* u = extract_min_queue(q); 
-        node* v = find_nearest_node(G, u);
-        relax(u, v, weight(G, u, v)); 
+        int* v = find_nodes(G, u);
+        int j = 0;
+        while(v[j] != -1){
+            relax(u, &G->V[v[j]], weight(G, u, &G->V[v[j]]));
+            j++;
+        }
+        free(v);
     }
 }
+
 
 void dijkstra_heap(graph* G, node* source){
     init_sssp(G, INFTY);
     source->value = 0;
     binheap_type* H = build_heap(G->V, G->size, G->size, sizeof(node), leq_int_node);
+    node* t = &((node*)H->A)[0];
+    printf("t value %d\n", t->value);
     while(!is_heap_empty(H)){ 
-        node* u = (node*)extract_min_heap(H); 
-        node* v = find_nearest_node(G, u);
-        printf("%d\n", u->index);
-        relax(u, v, weight(G, u, v)); // causes segfault in heap only
+        //node* u = (node*)extract_min(H);// min in value not in index, u will be source in first step
+        node* u = &((node*)H->A)[0];
+        printf("u value %d\n", u->value);
+        extract_min(H);
+        int* v = find_nodes(G, u);
+        int j = 0;
+        while(v[j] != -1){
+            relax(u, &G->V[v[j]], weight(G, u, &G->V[v[j]]));
+            j++;
+        }  
         heapify(H, 0); 
+        free(v);
     }
     delete_heap(H);
 }
+

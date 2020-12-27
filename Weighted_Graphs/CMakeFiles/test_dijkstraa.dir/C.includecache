@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/milton/Desktop/Units/Algorithmic-Design-Exercises/Weighted_Graphs/src/graph.c
+graph.h
+-
+stdlib.h
+-
+queue.h
+-
+binheap.h
+-
+total_orders.h
+-
+
+include/binheap.h
+stdlib.h
+-
+stdio.h
+-
+total_orders.h
+-
+
+include/graph.h
+queue.h
+-
+
+include/queue.h
+stdlib.h
+-
+
+include/total_orders.h
+queue.h
+-
+

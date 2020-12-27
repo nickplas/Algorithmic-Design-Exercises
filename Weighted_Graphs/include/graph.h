@@ -1,7 +1,7 @@
 #ifndef __GRAPH__
 #define __GRAPH__
 
-#define INFTY 99
+#define INFTY 9999
 
 #include<queue.h>
 
@@ -14,6 +14,8 @@ typedef struct graph{
 graph* build_graph(node* A, int** E, unsigned int n);
 
 int weight(graph* G, node* u, node* v);
+
+int* find_nodes(graph* G, node* n);
 
 void init_sssp(graph* G, unsigned int max);
 

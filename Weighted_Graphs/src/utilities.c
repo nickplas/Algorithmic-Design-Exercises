@@ -1,5 +1,7 @@
 #include<utilities.h>
 #include<stdio.h>
+#include<queue.h>
+#include<graph.h>
 
 int* get_random_int_array(const unsigned int n) //fix random values
 {
@@ -21,11 +23,11 @@ int** get_random_int_matrix(const unsigned n, const unsigned int max)
     mat[i] = (int *)malloc(n * sizeof(int));
   }
 
-  srand(11);
+  srand(10);
   for(int i = 0; i < n; i++){
     for(int j = 0; j < n; j++){
-      mat[i][j] = rand() % 20;
-      if (mat[i][j] > 15){
+      mat[i][j] = (rand() % 20) +1;
+      if (mat[i][j] > 16){
         mat[i][j] = max;
       }
     }
@@ -33,12 +35,12 @@ int** get_random_int_matrix(const unsigned n, const unsigned int max)
   return mat;
 }
 
-void print_array(int* A, int size){
+void print_nodes(graph* G, int size){
   for (size_t i = 0; i < size; i++){
-    printf("%d ", A[i]);
+    printf("index: %d, value: %d\n", G->V[i].index, G->V[i].value);
   }
-  printf("\n");
 }
+
 void print_matrix(int** A, int size){
   for(size_t i = 0; i < size; i++){
     for(size_t j = 0; j < size; j++){

@@ -1,6 +1,7 @@
 #include <binheap.h>
 #include <stdio.h>
 #include <string.h>
+#include <queue.h>
 
 #define PARENT(node) ((node-1)/2)
 #define LEFT_CHILD(node) (2*(node)+1)
@@ -53,7 +54,7 @@ void heapify(binheap_type *H, unsigned int node){
     }while(dst_node != node);
 }
 
-const void *extract_min_heap(binheap_type *H){
+const void *extract_min(binheap_type *H){
     if(is_heap_empty(H)){
         return NULL;
     }
