@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "matrix.h"
+#include <string.h>
+#include <matrix.h>
 
 void naive_matrix_multiplication(float **C, float **A,
                                 float **B,
                                 const size_t n) 
-// float const *const *const is a matrix, do not change pointer to rows, cols and content
 {
 	for (size_t y = 0; y < n; y++){
 		for (size_t x = 0; x < n; x++){
@@ -33,7 +33,7 @@ int same_matrix(float **A, float **B,
 float **allocate_matrix(const size_t rows, const size_t cols) {
 	float **M = (float **)malloc(sizeof(float *) * rows);
 	for (size_t i = 0; i < rows; i++) {
-		M[i] = (float *)malloc(sizeof(float) * cols);
+		M[i] = (float *)calloc(cols, sizeof(float));
 	}
 	return M;
 }
@@ -46,7 +46,7 @@ void deallocate_matrix(float **A, const size_t rows) {
 }
 
 
-float **allocate_random_matrix(const size_t rows, const size_t cols) {
+float** allocate_random_matrix(const size_t rows, const size_t cols) {
 	float **A = allocate_matrix(rows, cols);
 	srand(10);
 	for (size_t i = 0; i < rows; i++) {
@@ -55,4 +55,11 @@ float **allocate_random_matrix(const size_t rows, const size_t cols) {
 		}
 	}
 	return A;
+}
+
+float** cpy_submatrix(float** dest, float** src, size_t rows, size_t cols){
+	for(size_t i = 0; i < rows; i++){
+		memcpy(dest[i], src[i], sizeof(float)*cols);
+	}
+	return dest;
 }

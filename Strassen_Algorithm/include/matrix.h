@@ -13,4 +13,6 @@ void deallocate_matrix(float **A, const size_t rows);
 
 
 float **allocate_random_matrix(const size_t rows, const size_t cols);
+
+float** cpy_submatrix(float** dest, float** src, size_t rows, size_t cols);
 #endif

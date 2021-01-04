@@ -1,4 +1,5 @@
-#include "matrix.h"
+#include <matrix.h>
+#include <strassen.h>
 
 void sub_matrix_blocks(float **C, float **A, float **B,
                	       const size_t C_f_row, const size_t C_f_col,
@@ -58,8 +59,8 @@ void strassen_aux(float **C, float **A, float **B,
 		return;
 	}
 
-	size_t n2= n/2; //size of the blocks
-	float ***S = (float ***)malloc(sizeof(float **)*10);// array/pointer of matrices
+	size_t n2= n/2;
+	float ***S = (float ***)malloc(sizeof(float **)*10);
 	for(size_t i = 0; i<10; i++){
 		S[i] = allocate_matrix(n2, n2);
 	}
@@ -247,7 +248,7 @@ void improved_strassen(float **C, float **A, float **B,
                 return;
         }
         size_t n2= n/2;
-        float ***S = (float ***)malloc(sizeof(float **)*10);
+        float ***S = (float ***)malloc(sizeof(float **)*2);
 	
 	//Basically we improve allocation by reducing
 	//its number and using the same matrix for
@@ -262,7 +263,7 @@ void improved_strassen(float **C, float **A, float **B,
 
 	//allocate only 4 P matrices for the same
 	//reason
-	float ***P = (float ***)malloc(sizeof(float **)*7);
+	float ***P = (float ***)malloc(sizeof(float **)*4);
         for(size_t i =0; i<4; i++){
                 P[i]=allocate_matrix(n2,n2);
         }
@@ -455,13 +456,8 @@ void improved_strassen(float **C, float **A, float **B,
 	
 }
 
-void test(float **C, float **A,
-          float **B, size_t n){
-	improved_strassen(C, A, B,
-			  0, 0,
-			  0, 0,
-			  0, 0,
-			  n);
+void improved_strassen_matrix_multiplication(float **C, float **A, float **B, size_t n){
+        improved_strassen(C, A, B, 0, 0, 0, 0, 0, 0, n);
 }
 
 void strassen_matrix_multiplication(float **C, float **A,
