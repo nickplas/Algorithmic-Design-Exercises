@@ -1,3 +1,0 @@
-/Users/milton/Desktop/Units/Algorithmic-Design-Exercises/Weighted_Graphs/CMakeFiles/rebuild_cache.dir
-/Users/milton/Desktop/Units/Algorithmic-Design-Exercises/Weighted_Graphs/CMakeFiles/edit_cache.dir
-/Users/milton/Desktop/Units/Algorithmic-Design-Exercises/Weighted_Graphs/CMakeFiles/test_dijkstraa.dir
