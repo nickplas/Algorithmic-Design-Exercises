@@ -4,7 +4,7 @@
 
 In the file called "generalization_strassen.c" in the "src" folder there is the implementation of the Strassen algorithm that works also for rectangular matrices. It converts a rectangular matrix into a square one and uses the "square_strassen" function that computes the product between two square matrices using the Strassen algorithm, to do that it converts any odd-sized square matrix into an even-sized one and computes the multiplication.
 
-### Exercize 2
+### Exercise 2
 
 The function "improved_strassen" reduce the memory allocation by using only two S matrices and P matrices in the Strassen algorithm, results are shown in the following table:
 
