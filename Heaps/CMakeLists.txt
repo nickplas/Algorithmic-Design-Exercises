@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.56)
 project(binheap)
 
+cmake_policy(SET CMP0042 NEW)
+
 set( DESCRIPTION "libbinheap - A simple array-based implementation of binary heaps" )
 
 set( CMAKE_BUILD_TYPE "Release" )

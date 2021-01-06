@@ -41,18 +41,18 @@ void heapify(binheap_type *H, unsigned int node){
 	unsigned int dst_node = node;
 	unsigned int child, node_pos, child_pos;
 	do{
-        	node = dst_node;
-		child = RIGHT_CHILD(node); 
-        	if (VALID_NODE(H,child) && H->leq(ADDR(H,child), ADDR(H, dst_node))){
-        		dst_node = child;
-        	}
-		child = LEFT_CHILD(node);
-        	if (VALID_NODE(H,child) && H->leq(ADDR(H,child), ADDR(H, dst_node))) {
-        		dst_node = child;
-        	}
-        	if(dst_node != node){
-        		swap_keys(H, dst_node, node);
-        	}
+        node = dst_node;
+		child = LEFT_CHILD(node); 
+        if (VALID_NODE(H,child) && H->leq(ADDR(H,POS(H, child)), ADDR(H, POS(H,dst_node)))){
+    		dst_node = child;
+    	}
+		child = RIGHT_CHILD(node);
+        if (VALID_NODE(H,child) && H->leq(ADDR(H,POS(H, child)), ADDR(H, POS(H,dst_node)))) {
+    		dst_node = child;
+    	}
+        if(dst_node != node){
+    		swap_keys(H, dst_node, node);
+    	}
 	}while(dst_node != node);
 }
 
@@ -64,24 +64,22 @@ const void *extract_min(binheap_type *H){
 	H->num_of_elem--;
 	heapify(H, 0); 
 
-	return ADDR(H, KEY(H, H->num_of_elem+1)); 
+	return ADDR(H, KEY(H, H->num_of_elem)); //+1
 }
 
 const void *find_the_max(void *A, const unsigned int num_of_elem,
-                  const unsigned int key_size,total_order_type leq){
+                 		 const unsigned int key_size,total_order_type leq){
 
-        if(num_of_elem==0){
-        	return NULL;
+    if(num_of_elem==0){
+    	return NULL;
+    }
+    const void *max_value = A;
+    for(const void *addr=A+key_size; addr!=A+num_of_elem*key_size; addr+=key_size){
+        if(!leq (addr, max_value)){
+        	max_value = addr;
         }
-        const void *max_value = A;
-        for(const void *addr=A+key_size;
-            addr!=A+num_of_elem*key_size; addr+=key_size){
-                if(!leq (addr, max_value)){
-                	max_value = addr;
-                }
-        }
-
-        return max_value;
+    }
+    return max_value;
 }
 
 //new buildheap
@@ -107,9 +105,9 @@ binheap_type *build_heap(void *A,
 	}
 
 	for(size_t i = 0; i<num_of_elem; i++ ){
-                H->rev_pos[i] = i;
-                H->key_pos[i] = i;
-        }
+        H->rev_pos[i] = i;
+        H->key_pos[i] = i;
+    }
 
 	const void *value = find_the_max(A,num_of_elem, key_size,leq);
 	                            							
@@ -135,16 +133,15 @@ const void *decrease_key(binheap_type *H, void *node, const void *value){
 
 	unsigned int node_idx = POS(H, INDEX_OF(H, node));
 
-    	//check if the node is valid or if the new value is greater than the node's key
-    	if(!(H->leq(value, node)) || !(VALID_NODE(H, node_idx))){
-        
+    //check if the node is valid or if the new value is greater than the node's key
+	if(!(H->leq(value, node)) || !(VALID_NODE(H, node_idx))){        
 		return NULL;
-    	}
+	}
     
-    	memcpy(node, value, H->key_size);
+    memcpy(node, value, H->key_size);
 	
-    	//if we have only one element we cannot use PARENT macro
-    	if(H->num_of_elem > 1){ //prevent segmentation fault
+	//if we have only one element we cannot use PARENT macro
+    if(H->num_of_elem > 1){ //prevent segmentation fault
         
 		unsigned int parent_idx = PARENT(node_idx);
 		void* parent = ADDR(H, parent_idx);
@@ -161,43 +158,41 @@ const void *decrease_key(binheap_type *H, void *node, const void *value){
 				parent = ADDR(H, parent_idx); 
 			}
 		}
-
 	}
-
-    	return node;
+    return node;
 }
 
 
 const void *insert_value(binheap_type *H, const void *value){
-    	if(H->max_size == H->num_of_elem){
-        	return NULL;
-    	}
+	if(H->max_size == H->num_of_elem){
+        return NULL;
+    }
 
-    	if(H->num_of_elem == 0 || !(H->leq(value, H->max_order_value))){
-        	memcpy(H->max_order_value, value, H->key_size);
-    	}
+    if(H->num_of_elem == 0 || !(H->leq(value, H->max_order_value))){
+        memcpy(H->max_order_value, value, H->key_size);
+	}
 
-    	//create new node as we did in the Heaps code using the new arrays
+    //create new node as we did in the Heaps code using the new arrays
 	KEY(H, H->num_of_elem) = H->num_of_elem;
 	POS(H, H->num_of_elem) = H->num_of_elem;  
 	void *new_node_addr = ADDR(H, H->num_of_elem);
-    	memcpy(new_node_addr, H->max_order_value, H->key_size);
-    	H->num_of_elem++;
-    	return decrease_key(H, new_node_addr, value);
+    memcpy(new_node_addr, H->max_order_value, H->key_size);
+	H->num_of_elem++;
+    return decrease_key(H, new_node_addr, value);
 }
 
 void print_heap(const binheap_type *H, 
                 void (*key_printer)(const void *value)){
 
-    	unsigned int next_level_node = 1;
-    	for (unsigned int node = 0; node < H->num_of_elem; node++){
-        	if(node == next_level_node){
-            		printf("\n");
-            		next_level_node = LEFT_CHILD(node);
-       		}else{
-            		printf("\t");
-        	}
-        	key_printer(ADDR(H, POS(H,node)));
-    	}
-    	printf("\n");
+    unsigned int next_level_node = 1;
+	for (unsigned int node = 0; node < H->num_of_elem; node++){
+        if(node == next_level_node){
+        	printf("\n");
+    		next_level_node = LEFT_CHILD(node);
+   		}else{
+            printf("\t");
+        }
+        key_printer(ADDR(H, POS(H,node)));
+    }
+    printf("\n");
 }
