@@ -1,5 +1,5 @@
 # Homework: Weighted Graps
-### Plasencia Palacios Milton Nicol\'as
+### Plasencia Palacios Milton Nicolás
 
 #### Exercise 1
 The array-based inmplementation for Dijkstra's algorithm is found in the "graph.c" file in the "src" folder (name of function: 'dijkstra_queue').
