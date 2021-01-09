@@ -37,7 +37,11 @@ int** get_random_int_matrix(const unsigned n, const unsigned int max)
 
 void print_nodes(graph* G, int size){
   for (size_t i = 0; i < size; i++){
-    printf("index: %d, value: %d\n", G->V[i].index, G->V[i].value);
+    if (G->V[i].pred == NULL){
+      printf("index: %d, value: %d, index of preced: no preced\n", G->V[i].index, G->V[i].value);
+    }else{
+      printf("index: %d, value: %d, index of preced: %d\n", G->V[i].index, G->V[i].value, G->V[i].pred->index);
+    }
   }
 }
 

@@ -21,7 +21,7 @@ void init_sssp(graph* G, unsigned int max);
 
 void relax(node* u, node* v, int w);
 
-void dijkstra_queue(graph* G, node* source); //here distance array aka .d will be created
+void dijkstra_queue(graph* G, node* source); 
 
 void dijkstra_heap(graph* G, node* source);
 

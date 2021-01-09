@@ -1,8 +1,9 @@
 #include <graph.h>
 #include <stdlib.h>
-#include<queue.h>
-#include<binheap.h>
-#include<total_orders.h>
+#include <queue.h>
+#include <binheap.h>
+#include <total_orders.h>
+#include <utilities.h>
 
 graph* build_graph(node* A, int** M, unsigned int n){
     graph* g = (graph*)malloc(sizeof(graph));
@@ -25,16 +26,13 @@ void init_sssp(graph* G, unsigned int max){
 }
 
 void relax(node* u, node* v, int w){
-    printf("u->value %d, w %d, v->value %d\n", u->value, w, v->value);
-    if(u->value+ w < v->value){ // does not enter here
-        //printf("u->value %d, w %d, v->value %d", u->value, w, v->value);
+    if(u->value+ w < v->value){ 
         v->value = u->value+w;
-        //printf("u->value %d, w %d, v->value %d", u->value, w, v->value);
-        v->pred=u;
+        v->pred = u;
     }
 }
 
-//Must find all neighbours of node n, not the nearest
+//Must find all neighbours of node n, list of indices
 int* find_nodes(graph* G, node* n){ 
     
     int* nodes = (int*)malloc(sizeof(int)*G->size);
@@ -56,36 +54,33 @@ void dijkstra_queue(graph* G, node* source){
     while(!is_empty(q)){ 
         node* u = extract_min_queue(q); 
         int* v = find_nodes(G, u);
-        int j = 0;
+        int j = 0;      
         while(v[j] != -1){
             relax(u, &G->V[v[j]], weight(G, u, &G->V[v[j]]));
             j++;
         }
+        //printf("after relax, index: %d\n", u->index);
+        //print_nodes(G, G->size);
         free(v);
     }
 }
-
 
 void dijkstra_heap(graph* G, node* source){
     init_sssp(G, INFTY);
     source->value = 0;
     binheap_type* H = build_heap(G->V, G->size, G->size, sizeof(node), leq_int_node);
-    node* t = &((node*)H->A)[0];
-    printf("t value %d\n", t->value);
     while(!is_heap_empty(H)){ 
-        //node* u = (node*)extract_min(H);// min in value not in index, u will be source in first step
-        node* u = &((node*)H->A)[0];
-        printf("u value %d\n", u->value);
-        extract_min(H);
+        node* u = (node*)malloc(sizeof(node*));
+        u = &((node*)H->A)[0];
         int* v = find_nodes(G, u);
         int j = 0;
         while(v[j] != -1){
             relax(u, &G->V[v[j]], weight(G, u, &G->V[v[j]]));
-            j++;
-        }  
-        heapify(H, 0); 
+            j++;           
+        }        
+        extract_min(H);
+        heapify(H, 0);  
         free(v);
     }
     delete_heap(H);
 }
-
