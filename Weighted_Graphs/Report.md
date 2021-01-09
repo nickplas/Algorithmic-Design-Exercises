@@ -18,4 +18,4 @@ Queue Dijkstra: <img src="https://render.githubusercontent.com/render/math?math=
 
 Heap Dijkstra: <img src="https://render.githubusercontent.com/render/math?math=\Theta((|V| %2B |E|)\*\log (|V|))">
 
-in which this difference in complexity is due to the different implementation of the functions "Build_queue", "Extract_min" and "Update_distance", that depends on the data struucture used.
+in which this difference in complexity is due to the different implementation of the functions "Build_queue", "Extract_min" and "Update_distance", that depends on the data structure used.
