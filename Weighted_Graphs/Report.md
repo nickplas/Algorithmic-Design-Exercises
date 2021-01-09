@@ -14,6 +14,8 @@ The heap-based implementation for Dijkstra's algorithm is found in the "graph.c"
 
 Here I've tested my implementation of Dijkstra's algorithm on queues and on heaps. We can see that from <img src="https://render.githubusercontent.com/render/math?math=2^15"> heap version outperform the queue one and that can be explained using the asymptotic complexity of both implementations:
 
-Queue Dijkstra: ![formula](https://render.githubusercontent.com/render/math?math=\Theta(|V|^2 + |E|))
+Queue Dijkstra: <img src="https://render.githubusercontent.com/render/math?math=\Theta(|V|^2 + |E|)">
 
 Heap Dijkstra: <img src="https://render.githubusercontent.com/render/math?math=\Theta((|V| + |E|)*\log (|V|))">
+
+in which this difference in complexity is due to the different implementation of the functions "Build_queue", "Extract_min" and "Update_distance", that depends on the data struucture used.
