@@ -8,4 +8,6 @@ cmake CMakeLists.txt
 make
 ```
 
-to obtain the desired executables.
+to obtain the desired executables. The reports are the pdf files inside every directory, except from the ones in "Strassen_Algorithm" and "Weighted_Graphs", those are ".md" files.
+
+If there are some problems fell free to contact me: plasencia.milton@gmail.com .
