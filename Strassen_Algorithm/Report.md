@@ -6,7 +6,7 @@ In the file called "generalization_strassen.c" in the "src" folder there is the 
 
 ### Exercise 2
 
-The function "improved_strassen" reduce the memory allocation by using only two S matrices and P matrices in the Strassen algorithm, results are shown in the following table:
+The function "improved_strassen" reduce the memory allocation by using only two S matrices and four P matrices in the Strassen algorithm, results are shown in the following table:
 
 |n	  |strassen 	 |improvement 	 |same |
 |:--- | :---:      | :---:         |:---:|
