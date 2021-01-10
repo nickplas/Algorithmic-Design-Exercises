@@ -2,20 +2,9 @@
 
 ### Exercise 1
 
-In the file called "generalization_strassen.c" in the "src" folder there is the implementation of the Strassen algorithm that works also for rectangular matrices. It converts a rectangular matrix into a square one and uses the "square_strassen" function that computes the product between two square matrices using the Strassen algorithm, to do that it converts any odd-sized square matrix into an even-sized one and computes the multiplication.
+In the file called "generalization_strassen.c" in the "src" folder there is the implementation of the Strassen algorithm that works also for rectangular matrices. It converts a rectangular matrix into a square one and uses the "square_strassen" function that computes the product between two square matrices using the Strassen algorithm, to do that it converts any odd-sized square matrices into an even-sized ones and computes the multiplication. At the end of the computations we will get a padded version of C matrix (the one that store the result) so we just remove the padding.
 
-```
-Square matrix algorithm:
-def Square_mult
-  if(size is even):
-      divide the matrix in 4 blocks
-      Square_mult
-  else:
-      pad the matrix to get an even-sized matrix
-      Square_mult
-  remove_padding
-  return
-```
+
 
 ### Exercise 2
 
