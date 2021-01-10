@@ -8,7 +8,6 @@ int* new_partition(void *A, const size_t elem_size, size_t i, size_t j ,size_t p
 {
 	swap(A+i*elem_size, A+p*elem_size, elem_size);
 	int* k= malloc(sizeof(int)*2);
-	//static int k[2];
 	unsigned int c = 0;
 	p = i;
 	i++;
@@ -38,7 +37,7 @@ unsigned int partition(void *A, const size_t elem_size, size_t i, size_t j ,size
 	swap(A+i*elem_size, A+p*elem_size, elem_size);
 	p = i;
 	i++;
-	j--; //Non può avere come valore n !!!
+	j--; 
 	while(i<=j){
 		if(leq(A+p*elem_size, A+i*elem_size)){
 			swap(A+i*elem_size,A+j*elem_size, elem_size);
@@ -54,7 +53,6 @@ unsigned int partition(void *A, const size_t elem_size, size_t i, size_t j ,size
 
 void quick_sort_aux(void *A, size_t i, const unsigned int n, const size_t elem_size, total_order_type leq)
 {
-	//int *k;
 	unsigned int k;
 	while(i<n){
 		k = partition(A, elem_size, i, n, i, leq);
